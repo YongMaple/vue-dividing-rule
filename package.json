@@ -1,14 +1,14 @@
 {
-  "name": "vue-ruler",
-  "version": "1.0.0",
-  "description": "a ruler component to vue",
+  "name": "vue-dividing-rule",
+  "version": "0.1.0",
+  "description": "a dividing rule component to vue",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YongMaple/vue-ruler.git"
+    "url": "git+https://github.com/YongMaple/vue-dividing-rule.git"
   },
   "keywords": [
     "Vue",
@@ -18,7 +18,7 @@
   "author": "YongMaple <jyfmaple@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/YongMaple/vue-ruler/issues"
+    "url": "https://github.com/YongMaple/vue-dividing-rule/issues"
   },
-  "homepage": "https://github.com/YongMaple/vue-ruler#readme"
+  "homepage": "https://github.com/YongMaple/vue-dividing-rule#readme"
 }
