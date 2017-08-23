@@ -112,6 +112,6 @@ export default {
     }
 }
 </script>
-<style lang="css" scoped>
-@import "./style.css";
+<style lang="less" scoped>
+@import "./style.less";
 </style>
