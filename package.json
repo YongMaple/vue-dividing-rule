@@ -1,0 +1,24 @@
+{
+  "name": "vue-ruler",
+  "version": "1.0.0",
+  "description": "a ruler component to vue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YongMaple/vue-ruler.git"
+  },
+  "keywords": [
+    "Vue",
+    "ruler",
+    "component"
+  ],
+  "author": "YongMaple <jyfmaple@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YongMaple/vue-ruler/issues"
+  },
+  "homepage": "https://github.com/YongMaple/vue-ruler#readme"
+}

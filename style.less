@@ -1,0 +1,93 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .ruler_container {
+        white-space: nowrap;
+        box-sizing: border-box;
+        position: relative;
+        height: 50px;
+        overflow: auto;
+        .interval {
+            display: inline-block;
+            height: 20px;
+            box-sizing: border-box;
+            margin-top: 10px;
+            position: relative;
+            &::before {
+                content: "";
+                position: absolute;
+                display: block;
+                left: 0;
+                top: 0;
+                width: 1px;
+                height: 20px;
+                background: #000;
+            }
+            &last-child::after {
+                content: "";
+                position: absolute;
+                display: block;
+                right: 0;
+                top: 0;
+                width: 1px;
+                height: 20px;
+                background: #000;
+            }
+            .scale {
+                margin-top: 5px;
+                display: inline-block;
+                box-sizing: border-box;
+                width: 5px;
+                white-space: nowrap;
+                height: 15px;
+                &:not(:first-child) {
+                    border-left: solid 1px #888;
+                }
+            }
+            .after_number,
+            .number {
+                display: block;
+                position: absolute;
+                z-index: 4;
+                top: 25px;
+            }
+            .number {
+                transform: translateX(-50%);
+                left: 0;
+            }
+            .after_number {
+                transform: translateX(50%);
+                right: 0;
+            }
+            .left_mask {
+                position: absolute;
+                top: 0;
+                left: -1px;
+                height: 50px;
+                width: 50px;
+                z-index: 3;
+                background: -webkit-linear-gradient(left,rgb(255,255,255),rgba(255,255,255,0.5));
+            }
+            .right_mask {
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 50px;
+                width: 50px;
+                z-index: 3;
+                background: -webkit-linear-gradient(left,rgba(255,255,255,0.5),rgb(255,255,255));
+            }
+        }
+    }
+    .pointer {
+        border-left: solid 2px red;
+        height: 30px;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        z-index: 999;
+    }
+}
