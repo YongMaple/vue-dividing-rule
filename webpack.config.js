@@ -1,36 +1,72 @@
-var path = require('path');
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var pkg = require('./package.json');
-var banner = `${pkg.name} v${pkg.version}\n${pkg.description}\n@author ${pkg.author}`;
+var path = require('path')
+var webpack = require('webpack')
+
 module.exports = {
-    entry: {
-        'vue-dividing-rule': path.join(__dirname, 'src/index.vue')
-    },
+    entry: './demo/main.js',
     output: {
-        path: path.join(__dirname, 'dist'),
-        publicPath: '/',
-        library: 'VueDividingRule',
-        libraryTarget: 'umd',
-        filename: "[name].js"
+        path: path.resolve(__dirname, './dist'),
+        publicPath: '/dist/',
+        filename: 'build.js'
     },
     module: {
-        loaders: [
-            {test: /\.js$/, loader: 'babel', exclude: /node_modules/},
-            {test: /\.vue$/, loader: 'vue'},
-            {test: /\.less$/, loader: "css?sourceMap!postcss!less?sourceMap"}
+        rules: [{
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                options: {
+                    loaders: {}
+                    // other vue-loader options go here
+                }
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]?[hash]'
+                }
+            },
+            {
+                test: /\.less$/,
+                loader: "css?sourceMap!postcss!less?sourceMap"
+            }
         ]
     },
-    postcss: [autoprefixer({browsers: ['last 2 versions', 'Android 2.3']})],
-    babel: {
-        "presets": ["es2015"]
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        }
     },
-    plugins: []
-};
+    devServer: {
+        historyApiFallback: true,
+        noInfo: true
+    },
+    performance: {
+        hints: false
+    },
+    devtool: '#eval-source-map'
+}
 
-if (process.env.NODE_ENV === 'dev') {
-    module.exports.devtool = '#eval-source-map';
-} else {
-    module.exports.plugins.push(new webpack.optimize.UglifyJsPlugin());
-    module.exports.plugins.push(new webpack.BannerPlugin(banner));
+if (process.env.NODE_ENV === 'production') {
+    module.exports.devtool = '#source-map'
+    // http://vue-loader.vuejs.org/en/workflow/production.html
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            sourceMap: true,
+            compress: {
+                warnings: false
+            }
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true
+        })
+    ])
 }

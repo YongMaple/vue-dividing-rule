@@ -17,7 +17,7 @@
             <div class="right_mask" :style="{ width: mask_width + 'px' }" v-if="n == half"></div>
         </div>
     </div>
-    <div class="pointer"></div>
+    <div class="pointer" :style="{ backgroundColor:color }"></div>
 </div>
 </template>
 <script>
@@ -34,6 +34,14 @@ export default {
         interval: {
             type: Number,
             default: 10
+        },
+        color: {
+            type: String,
+            default: 'red'
+        },
+        value: {
+            type: Number,
+            default: this.min
         }
     },
     computed: {
@@ -46,16 +54,18 @@ export default {
             return Math.ceil((v - this.width_diff) / 5) + this.min
         },
         getApproximate(val) {
-			let arr = this.values
+            let arr = this.values
             if (arr.indexOf(val) < 0) {
                 arr.push(val)
-                let index = arr.sort((a,b)=>{return a-b}).indexOf(val)
+                let index = arr.sort((a, b) => {
+                    return a - b
+                }).indexOf(val)
                 let a = arr[index - 1]
                 let b = arr[index + 1]
                 return Math.abs(val - a) > Math.abs(val - b) ? b : a
-            }else{
-				return val
-			}
+            } else {
+                return val
+            }
         }
     },
     data() {
@@ -65,44 +75,49 @@ export default {
             width_diff: 0,
             ruler_container_width: 0,
             values: [],
-			scrollLeft: 0,
-			timer: 0
+            scrollLeft: 0,
+            timer: 0
         }
     },
     mounted() {
-		// 获取刻度尺的宽度
+        // 获取刻度尺的宽度
         let width = this.$refs.container.getBoundingClientRect().width
-		// 刻度尺一半宽度需要多少个大区间，向上取整
-		this.half = Math.ceil(width / 2 / (this.interval * 5))
-		// 计算渐变蒙层的宽度
+        // 刻度尺一半宽度需要多少个大区间，向上取整
+        this.half = Math.ceil(width / 2 / (this.interval * 5))
+        // 计算渐变蒙层的宽度
         this.mask_width = this.half * this.interval * 5
-		// 计算渐变蒙层和实际一半宽度的差额，该值也用于调整计算min值的位置
-		this.width_diff = Math.abs(width / 2 - this.mask_width)
-		// 获取最大值时scrollLeft的值
-		let max = this.count * this.interval * 5 + this.width_diff
-		// 将所有值对应的scrollLeft值存在values中
+        // 计算渐变蒙层和实际一半宽度的差额，该值也用于调整计算min值的位置
+        this.width_diff = Math.abs(width / 2 - this.mask_width)
+        // 获取最大值时scrollLeft的值
+        let max = this.count * this.interval * 5 + this.width_diff
+        // 将所有值对应的scrollLeft值存在values中
         for (let i = this.min; i <= this.max; i++) {
-			let v = this.width_diff + (i * 5)
+            let v = this.width_diff + (i * 5)
             this.values.push(v)
         }
-		// 获取刻度尺容器
-		let dom = document.querySelectorAll(".ruler_container")[0]
-		// 设置初始化时刻度指向min值的位置
-		this.scrollLeft = dom.scrollLeft = this.width_diff
-		// 添加滚动监听事件
-		let _this = this
-		dom.addEventListener('scroll', event => {
+        // 获取刻度尺容器
+        let dom = document.querySelectorAll(".ruler_container")[0]
+        // 设置初始化时刻度指向min值的位置
+        let location = this.width_diff
+        if(this.value > this.min && this.value < this.max){
+            location = this.width_diff + (this.value - this.min) * 5
+        }
+        this.scrollLeft = dom.scrollLeft = location
+        // 添加滚动监听事件
+        let _this = this
+        dom.addEventListener('scroll', event => {
             let obj = event.srcElement ? event.srcElement : event.target
-			if(obj.scrollLeft < _this.width_diff){
-				_this.scrollLeft = obj.scrollLeft = _this.width_diff
-			}else if(obj.scrollLeft > max){
-				_this.scrollLeft = obj.scrollLeft = max
-			}
-			clearTimeout(_this.timer)
-			_this.timer = setTimeout(function(){
-				_this.scrollLeft = dom.scrollLeft = _this.getApproximate(obj.scrollLeft)
-			},300)
+            if (obj.scrollLeft < _this.width_diff) {
+                _this.scrollLeft = obj.scrollLeft = _this.width_diff
+            } else if (obj.scrollLeft > max) {
+                _this.scrollLeft = obj.scrollLeft = max
+            }
+            clearTimeout(_this.timer)
+            _this.timer = setTimeout(function() {
+                _this.scrollLeft = dom.scrollLeft = _this.getApproximate(obj.scrollLeft)
+            }, 300)
         })
+
     },
     watch: {
         scrollLeft() {
