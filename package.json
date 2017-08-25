@@ -1,6 +1,6 @@
 {
     "name": "vue-dividing-rule",
-    "version": "0.8.0",
+    "version": "1.0.0",
     "description": "a dividing rule component to vue",
     "main": "src/index.vue",
     "scripts": {
@@ -14,7 +14,13 @@
     "keywords": [
         "Vue",
         "ruler",
-        "component"
+        "component",
+        "刻度尺",
+        "刻度",
+        "js刻度",
+        "js",
+        "es6",
+        "vue"
     ],
     "author": "YongMaple <jyfmaple@gmail.com>",
     "license": "MIT",
