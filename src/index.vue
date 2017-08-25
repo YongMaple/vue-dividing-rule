@@ -4,15 +4,15 @@
         <div class="interval" :style="{ width: 5 * interval + 'px'}" v-for="n in half">
             <div class="left_mask" :style="{ width: mask_width + 'px' }" v-if="n == 1"></div>
             <div class="scale" v-for="i in interval"></div>
-        </div>
-        <div class="interval" :style="{ width: 5 * interval + 'px'}" v-for="n in count">
+        </div><div
+        class="interval" :style="{ width: 5 * interval + 'px'}" v-for="n in count">
             <div class="scale" v-for="i in interval"></div>
             <span class="number">
 					{{ min + interval * (n - 1) }}
 				</span>
             <span class="after_number" v-if="n == count">{{ min + interval * n }}</span>
-        </div>
-        <div class="interval" :style="{ width: 5 * interval + 'px'}" v-for="n in half">
+        </div><div 
+        class="interval" :style="{ width: 5 * interval + 'px'}" v-for="n in half">
             <div class="scale" v-for="i in interval"></div>
             <div class="right_mask" :style="{ width: mask_width + 'px' }" v-if="n == half"></div>
         </div>
@@ -37,7 +37,7 @@ export default {
         },
         color: {
             type: String,
-            default: 'red'
+            default: '#f00'
         },
         value: {
             type: Number,
@@ -102,6 +102,7 @@ export default {
         if(this.value > this.min && this.value < this.max){
             location = this.width_diff + (this.value - this.min) * 5
         }
+        console.log(location);
         this.scrollLeft = dom.scrollLeft = location
         // 添加滚动监听事件
         let _this = this

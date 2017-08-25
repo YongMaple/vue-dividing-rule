@@ -1,6 +1,12 @@
 <template>
 <div id="app">
-    <vue-dividing-rule v-model="value"></vue-dividing-rule>
+    <vue-dividing-rule
+        v-model="value"
+        :min="50"
+        :max="120"
+        :interval="5"
+        color="blue"
+        ></vue-dividing-rule>
     {{ value }}
 </div>
 </template>
