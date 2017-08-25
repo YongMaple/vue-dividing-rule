@@ -1,5 +1,7 @@
 ### Vue刻度尺组件
 
+![](http://okmneu7zl.bkt.clouddn.com/WX20170825-135711@2x.png)
+
 ##### 安装
 
 ```bash
