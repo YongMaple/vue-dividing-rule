@@ -1,7 +1,7 @@
 {
     "name": "vue-dividing-rule",
     "version": "1.0.0",
-    "description": "a dividing rule component to vue",
+    "description": "a ruler component to vue",
     "main": "src/index.vue",
     "scripts": {
         "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
