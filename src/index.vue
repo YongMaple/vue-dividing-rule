@@ -21,6 +21,12 @@
 </div>
 </template>
 <script>
+function throttle(method,context){
+    clearTimeout(method.tId);
+    method.tId=setTimeout(function(){
+        method.call(context)
+    },300)
+}
 export default {
     props: {
         min: {
@@ -113,10 +119,9 @@ export default {
             } else if (obj.scrollLeft > max) {
                 _this.scrollLeft = obj.scrollLeft = max
             }
-            clearTimeout(_this.timer)
-            _this.timer = setTimeout(function() {
+            throttle(function(){
                 _this.scrollLeft = dom.scrollLeft = _this.getApproximate(obj.scrollLeft)
-            }, 300)
+            })
         })
 
     },
