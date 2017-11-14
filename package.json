@@ -1,6 +1,6 @@
 {
     "name": "vue-dividing-rule",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "a ruler component to vue",
     "main": "src/index.vue",
     "scripts": {
